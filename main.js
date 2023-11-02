@@ -1,17 +1,34 @@
-var SpeechRecognition = window.webkitSpeechRecognition;
+var SpeechRecognition = window.webkitSpeechRecognition; 
+var recognition = new SpeechRecognition(); 
 
-var recognition = new SpeechRecognition();
+camera=document.getElementById("camera");
 
 function start()
+{ 
+    document.getElementById("textbox").innerHTML = ""; 
+    recognition.start(); 
+} 
+recognition.onresult = function run (event) 
+{ 
+    console.log(event); 
+    var Content = event.results[0][0].transcript; 
+    console.log(Content); 
+    document.getElementById("textbox").innerHTML = Content; 
+    speak();
+}
+
+function speak()
 {
-    document.getElementById("textbox").innerHTML = "";
-    recognition.start();
+    var synth = window.speechSynthesis;
+    speak_data = document.getElementById("textbox").value;
+     var utterThis = new SpeechSynthesisUtterance(speak_data);
+      synth.speak(utterThis);
+      Webcam.attach(camera)
 }
 
-recognition.onresult() = function(event) {
-    console.log(event);
-    var Content = event.results[0][0].transcript;
-    console.log(Content);
-
-    document.getElementById("textbox").innerHTML = Content;
-}
+Webcam.set({
+    width:360,
+    height:250,
+    image_format : 'png',
+    png_quality:90
+});
