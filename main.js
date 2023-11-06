@@ -14,7 +14,6 @@ recognition.onresult = function run (event)
     var Content = event.results[0][0].transcript; 
     console.log(Content); 
     document.getElementById("textbox").innerHTML = Content; 
-    speak();
 }
 
 function speak()
@@ -23,7 +22,8 @@ function speak()
     speak_data = document.getElementById("textbox").value;
      var utterThis = new SpeechSynthesisUtterance(speak_data);
       synth.speak(utterThis);
-      Webcam.attach(camera)
+      Webcam.attach(camera);
+      speak();
 }
 
 Webcam.set({
